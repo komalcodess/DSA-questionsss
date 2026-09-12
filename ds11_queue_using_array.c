@@ -1,132 +1,111 @@
 #include <stdio.h>
 #define MAX 20
-
-void create(int* rear, int* front)
+void display(int *queue,int rear,int front)
 {
-    *front=-1;
-    *rear=-1;
-    printf("The queue has been created!!\n");
-    
+    if (front==-1)
+        return;
+
+    for (int i =front; i <=rear; i++)
+    {
+        printf("%d ", queue[i]);
+    }
+
+    printf("\n");
 }
 
-int isEmpty(int rear, int front){
-    if(rear==-1 || front ==-1)
-    return 1;
-    return 0;
-}
+void enqueue(int *queue, int *rear, int *front, int k)
+{
+    if (*rear ==MAX-1)
+    {
+        printf("Queue is full!!!");
+        return;
+    }
 
-void enqueue(int *queue,int k,int *rear, int *front){
-if(*rear==MAX-1){
-    return;
-}
-
-if(*front ==-1)
+    if (*front==-1)
         *front =0;
-        
-(*rear)++;
-queue[*rear]=k;
+
+    (*rear)++;
+    queue[*rear] =k;
+
+    printf("Queue - ");
+    display(queue, *rear, *front);
 }
 
-
-int dequeue(int *queue, int *rear , int *front)
-
+int dequeue(int *queue, int *rear, int*front)
 {
-    if(isEmpty(*rear, *front))
-    return -1;
+    if (*front ==-1)
+        return -1;
 
-   int val=queue[*front];
-   (*front)++;
+    int koms = queue[*front];
+    (*front)++;
 
-    if (*front > *rear)
+    if (*front >*rear)
     {
         *front = -1;
         *rear = -1;
     }
- return val;
+
+    return koms;
 }
 
-int size(int rear, int front){
-    if(isEmpty(rear, front))
-    return 0;
-    
-    else {
-        return rear-front+1;
+int size(int rear, int front)
+{
+    if (front ==-1)
+        return 0;
+    else{
+     return rear -front + 1;
     }
 }
 
-void display(int *queue,int rear, int front){
-    if(isEmpty(rear, front))
-        return;
-    for(int i=front;i<=rear;i++)
-    {
-        printf("%d ",queue[i]);
-    }
-    printf("\n");
-}
 
-int main(){
+int main()
+{
     int queue[MAX];
-    int front=-1,rear=-1;
-    int k,s;
-    int choice;
+    int front = -1;
+    int rear = -1;
+    int choice, k;
 
-    while(1){
-        printf("Press 1 to Create::\n");
-        printf("Press 2 to Enqueue::\n");
-        printf("Press 3 to Dequeue::\n");
-        printf("Press 4 to check whether the queue is empty or not::\n");
-        printf("Press 5 to know the size::\n");
-        printf("Press 6 to display::\n");
-        printf("Press 7 to exit::\n");
+    printf("Press: 1 to enqueue\n");
+    printf("Press: 2 to dequeue\n");
+    printf("Press: 3 to calculate size\n");
+    printf("Press: 4 to display the elements\n");
+    printf("Press: 5 to exit\n");
 
-        printf("Enter your choice: ");
-        scanf("%d",&choice);
-        switch(choice){
-            case 1: 
-            create(&rear, &front);
-            break;
+    while (1)
+    {
+        scanf("%d", &choice);
 
-            case 2:
-            printf("Enter the element to enqueue: ");
-            scanf("%d",&k);
-            enqueue(queue,k,&rear, &front);
-            
-            break;
-
-            case 3:
-            k=dequeue(queue, &rear, &front);
-            if (k != -1)
-                {
-                    printf("The dequeued element is: %d\n", k);
-                }
+        switch (choice)
+        {
+            case 1:
+                scanf("%d", &k);
+                enqueue(queue, &rear, &front, k);
                 break;
 
+            case 2:
+                k = dequeue(queue, &rear, &front);
+
+                if (k ==-1)
+                    printf("Queue is empty\n");
+
+                break;
+
+            case 3:
+                printf("Size = %d\n", size(rear, front));
+                break;
             case 4:
-            if(isEmpty(rear, front))
-            printf("The queue is empty");
-            else {
-                printf("The queue is not empty");
-
-            }
-            break;
-
-            case 5:
-            s=size(rear, front);
-            printf("The size of the queue is : %d",s);
-            break;
-
-            case 6:
             display(queue, rear, front);
             break;
 
-            case 7:
-            return 0;
+            case 5:
+                return 0;
 
             default:
-            printf("Invalid case");
-            return 0;
-
+                printf("Invalid choice!!\n");
         }
-
     }
+
+    return 0;
 }
+
+
