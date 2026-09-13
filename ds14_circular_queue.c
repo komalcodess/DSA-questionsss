@@ -5,18 +5,6 @@
 int queue[MAX];
 int front = -1;
 int rear = -1;
-int size;
-
-void create()
-{
-    printf("Enter size of queue: ");
-    scanf("%d", &size);
-
-    front =-1;
-    rear =-1;
-
-    printf("Queue created successfully.\n");
-}
 
 int isEmpty()
 {
@@ -25,10 +13,32 @@ int isEmpty()
 
 int isFull()
 {
-    return (rear + 1) % size == front;
+    return (rear + 1) % MAX == front;
 }
 
-void enqueue(int k)
+void display()
+{
+    if (isEmpty())
+        return;
+
+    printf("Circular Queue : ");
+
+    int i =front;
+
+    while (1)
+    {
+        printf("%d ", queue[i]);
+
+        if (i == rear)
+            break;
+
+        i =(i + 1) % MAX;
+    }
+
+    printf("\n");
+}
+
+void enqueue(int value)
 {
     if (isFull())
     {
@@ -43,33 +53,35 @@ void enqueue(int k)
     }
     else
     {
-        rear =(rear + 1) %size;
+        rear =(rear + 1) % MAX;
     }
 
-    queue[rear] = k;
+    queue[rear] = value;
+
+    display();
 }
 
 int dequeue()
 {
-    int value;
-
     if (isEmpty())
     {
         printf("Queue Underflow\n");
         return -1;
     }
 
-    value=queue[front];
+    int value=queue[front];
 
     if (front ==rear)
     {
-        front = -1;
-        rear = -1;
+        front =-1;
+        rear =-1;
     }
     else
     {
-        front =(front +1) % size;
+        front =(front + 1) % MAX;
     }
+
+    display();
 
     return value;
 }
@@ -77,10 +89,7 @@ int dequeue()
 int getFront()
 {
     if (isEmpty())
-    {
-        printf("Queue is empty\n");
         return -1;
-    }
 
     return queue[front];
 }
@@ -88,10 +97,7 @@ int getFront()
 int getRear()
 {
     if (isEmpty())
-    {
-        printf("Queue is empty\n");
         return -1;
-    }
 
     return queue[rear];
 }
@@ -100,58 +106,48 @@ int main()
 {
     int choice, value;
 
-    create();
+    printf("Press: 1 to enqueue\n");
+    printf("Press: 2 to dequeue\n");
+    printf("Press: 3 to find front\n");
+    printf("Press: 4 to find rear\n");
+    printf("Press: 5 to exit\n");
 
     while (1)
     {
-        printf("Press 1.to EnQueue\n");
-        printf("Press 2.to  DeQueue\n");
-        printf("Press 3.to  IsEmpty\n");
-        printf("Press 4.to  Front\n");
-        printf("Press 5.to  Rear\n");
-        printf("Press 6.to  Exit\n");
-
-        printf("Enter your choice: ");
         scanf("%d", &choice);
 
         switch (choice)
         {
             case 1:
-                printf("Enter value: ");
                 scanf("%d", &value);
                 enqueue(value);
                 break;
 
             case 2:
-                value = dequeue();
-
-                if (!isEmpty() || value != -1)
-                    printf("Deleted element: %d\n", value);
-
+                dequeue();
                 break;
 
             case 3:
-                if (isEmpty())
+                value = getFront();
+
+                if (value == -1)
                     printf("Queue is empty\n");
                 else
-                    printf("Queue is not empty\n");
+                    printf("Front : %d\n", value);
+
                 break;
 
             case 4:
-                value = getFront();
+                value = getRear();
 
-                if (!isEmpty())
-                    printf("Front element: %d\n", value);
+                if (value == -1)
+                    printf("Queue is empty\n");
+                else
+                    printf("Rear : %d\n", value);
+
                 break;
 
             case 5:
-                value = getRear();
-
-                if (!isEmpty())
-                    printf("Rear element: %d\n", value);
-                break;
-
-            case 6:
                 return 0;
 
             default:
@@ -161,4 +157,3 @@ int main()
 
     return 0;
 }
-

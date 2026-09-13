@@ -74,6 +74,7 @@ int main()
 {
     int choice, value;
 
+    // Menu displayed only once
     printf("Press: 1 to push in stack 1\n");
     printf("Press: 2 to pop from stack 1\n");
     printf("Press: 3 to push in stack 2\n");
