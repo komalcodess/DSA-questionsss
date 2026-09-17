@@ -50,12 +50,13 @@ int main()
     bank s1;
     s1.setDetails();
     int choice;
-    while(1){
-        cout<<"Enter 1 to deposit"<<endl;
+      cout<<"Enter 1 to deposit"<<endl;
         cout<<"enter 2 to withdraw"<<endl;
         cout<<"Enter 3 to check the balance and name"<<endl;
         cout<<"Enter 4 to exit"<<endl;
-        cout<<"Enter the choice:";
+    while(1){
+    cout<<"Enter the choice:";
+
         cin>>choice;
         switch(choice){
     case 1:
