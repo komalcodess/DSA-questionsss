@@ -1,40 +1,90 @@
 #include <iostream>
 using namespace std;
-class area{
-public:
-int calculateArea(int side){
-int a;
-a=side*side;
-return a;
-}
+class student{
+    int age=19;
 
-float calculateArea(float b, float h){
-    float a;
-    a=0.5*b*h;
-    return a;
-}
+    void disp1(){
+        cout<<"The age is: "<<age<<endl;
+    }
 
-int calculateArea(int l,int b)
-{
-    int a;
-    a=l*b;
-    return a;
-}
+    protected:
+    string name="komal";
+    void disp2(){
+        cout<<"The name is: "<<name<<endl;
+    }
 
+    public:
+    string dept="CSE";
+    void disp3(){
+        cout<<"The department is: "<<dept<<endl;
+    }
 
 };
-int main(){
-    area a1;
 
-    int x=a1.calculateArea(10);
-    cout<<"The area of square is: "<<x<<endl;
+class cpublic:public student{
+    public:
+void show(){
+        //cout<<"Age is: "<<age<<endl;
+       // disp1();
 
-    int y=a1.calculateArea(2.0f,10.0f);
-    cout<<"The area of triangle is: "<<y<<endl;
+        cout << "Name: " << name << endl;
+        disp2();
 
-    int z=a1.calculateArea(50,30);
-    cout<<"The area of rectangle is: "<<z<<endl;
+        cout << "Department: " << dept << endl;
+        disp3();
+}
+
+};
+
+class cprotected: protected student{
+public:
+    void show()
+    {
+        //cout<<"Age is: "<<age<<endl;
+        //disp1();
+
+        cout << "Name: " << name << endl;
+        disp2();
+
+        cout << "Department: " << dept << endl;
+        disp3();
+    }
+};
+
+class child3 : private student
+{
+public:
+    void show()
+    {
+    //    cout<<"Age is: "<<age<<endl;
+    //     disp1();
+
+
+        cout << "Name: " << name << endl;
+        disp2();
+
+        cout << "Department: " << dept << endl;
+        disp3();
+    }
+};
+
+
+int main()
+{
+    cpublic k1;
+    cout << "Public Inheritance" << endl;
+    k1.show();
+
+    cout << endl;
+    cprotected k2;
+    cout << "Protected Inheritance" << endl;
+    k2.show();
+
+    cout << endl;
+
+    cpublic k3;
+    cout << "Private Inheritance" << endl;
+    k3.show();
 
     
-
 }
